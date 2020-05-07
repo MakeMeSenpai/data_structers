@@ -28,7 +28,7 @@ def decode(digits, base):
     d = len(digits) - 1
     # defines our answer
     new_digits = 0
-    
+
     # while i is greater then 0
     while 0 <= d:
         # checks our digit for strs
@@ -36,19 +36,19 @@ def decode(digits, base):
             # turns any letters into our hexidecimal's base of 16
             number = string.ascii_lowercase.index(digits[d].lower()) + 10
         else:
-            # else turns str to int
-            number = int(digits[i])
-        
+            # turns our digit to int
+            number = int(digits[d])
+
         # Then if digit doesn't equal '0'
         if digits[d] is not '0':
             # take the base (binary: 2) to the power of
-            #  placeholder (i) plus digit
-            opperator = base ** i + number
+            #  placeholder (i) multiplied by number
+            opperator = base ** i * number
             # adds our products together
             new_digits += opperator
 
         # incriments i & decriments d
-        i += 1 
+        i += 1
         d -= 1
     
     # gives us our answer
@@ -65,12 +65,38 @@ def encode(number, base):
     assert 2 <= base <= 36, 'base is out of range: {}'.format(base)
     # Handle unsigned numbers only for now
     assert number >= 0, 'number is negative: {}'.format(number)
-    # TODO: Encode number in binary (base 2)
-    # ...
-    # TODO: Encode number in hexadecimal (base 16)
-    # ...
-    # TODO: Encode number in any base (2 up to 36)
-    # ...
+    # incrimentor
+    i = 0
+    # decrimentor
+    d = len(number) - 1
+    # defines our answer
+    new_number = 0
+
+    # while i is greater then 0
+    while 0 <= d:
+        # # checks our digit for strs
+        # if number[d].isalpha():
+        #     # turns any letters into our hexidecimal's base of 16
+        #     digits = string.ascii_lowercase.index(number[d].lower()) + 10
+        # else:
+        #     # turns our digit to int
+        #     digits = int(number[d])
+
+        # Then if digit doesn't equal '0'
+        # if number[d] is not '0':
+            # take the base (binary: 2) to the power of
+            #  placeholder (i)to the power of 1/2 (for square
+            #  root) divided by number
+        opperator = ((base ** i) ** 1/2) / number
+            # adds our products together
+        new_number += opperator
+
+        # incriments i & decriments d
+        i += 1
+        d -= 1
+    
+    # gives us our answer
+    return new_number
 
 
 def convert(digits, base1, base2):
