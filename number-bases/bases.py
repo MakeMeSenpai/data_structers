@@ -3,11 +3,16 @@
 import string
 # Hint: Use these string constants to encode/decode hexadecimal digits and more
 # string.digits is '0123456789'
-# string.hexdigits is '0123456789abcdefABCDEF'
+# binary is "10" leading "0" have no value
+# hexdigits is '0123456789abcdefABCDEF' leading "0x" have no value
 # string.ascii_lowercase is 'abcdefghijklmnopqrstuvwxyz'
 # string.ascii_uppercase is 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 # string.ascii_letters is ascii_lowercase + ascii_uppercase
 # string.printable is digits + ascii_letters + punctuation + whitespace
+# bases to the power of, for example binary has a base of 2, and every number has
+#  a place holder, such as the 5 in 50. So if we have "10" then we would take 2^0 
+#  and 2^1 = 2. if it's to the power of zero ignore. example of hexidecimal if we
+#  have "0xB2", 16^1 * 11 + 2 = 13
 
 
 def decode(digits, base):
@@ -17,12 +22,38 @@ def decode(digits, base):
     return: int -- integer representation of number (in base 10)"""
     # Handle up to base 36 [0-9a-z]
     assert 2 <= base <= 36, 'base is out of range: {}'.format(base)
-    # TODO: Decode digits from binary (base 2)
-    # ...
-    # TODO: Decode digits from hexadecimal (base 16)
-    # ...
-    # TODO: Decode digits from any base (2 up to 36)
-    # ...
+    # incrimentor
+    i = 0
+    # decrimentor
+    d = len(digits) - 1
+    # defines our answer
+    new_digits = 0
+    
+    # while i is greater then 0
+    while 0 <= d:
+        # checks our digit for strs
+        if digits[d].isalpha():
+            # turns any letters into our hexidecimal's base of 16
+            number = string.ascii_lowercase.index(digits[d].lower()) + 10
+        else:
+            # else turns str to int
+            number = int(digits[i])
+        
+        # Then if digit doesn't equal '0'
+        if digits[d] is not '0':
+            # take the base (binary: 2) to the power of
+            #  placeholder (i) plus digit
+            opperator = base ** i + number
+            # adds our products together
+            new_digits += opperator
+
+        # incriments i & decriments d
+        i += 1 
+        d -= 1
+    
+    # gives us our answer
+    return new_digits
+
 
 
 def encode(number, base):
