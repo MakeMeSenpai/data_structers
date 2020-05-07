@@ -65,38 +65,28 @@ def encode(number, base):
     assert 2 <= base <= 36, 'base is out of range: {}'.format(base)
     # Handle unsigned numbers only for now
     assert number >= 0, 'number is negative: {}'.format(number)
-    # incrimentor
-    i = 0
-    # decrimentor
-    d = len(number) - 1
-    # defines our answer
-    new_number = 0
 
-    # while i is greater then 0
-    while 0 <= d:
-        # # checks our digit for strs
-        # if number[d].isalpha():
-        #     # turns any letters into our hexidecimal's base of 16
-        #     digits = string.ascii_lowercase.index(number[d].lower()) + 10
-        # else:
-        #     # turns our digit to int
-        #     digits = int(number[d])
+    # defines an empty array
+    new_number = []
+    # while the number is higher then 0
+    while 0 < number:
+        # take the remainder
+        remainder = number % base
+        # if the remainder is greater then 9
+        if remainder > 9:
+            # translate it into ascii for hexidecimal
+            letter = string.ascii_lowercase[remainder - 10]
+            # put it in the first index of new_number
+            new_number.insert(0, letter)
+        # else put it in the first index of new_number
+        else:
+            new_number.insert(0, str(remainder))
 
-        # Then if digit doesn't equal '0'
-        # if number[d] is not '0':
-            # take the base (binary: 2) to the power of
-            #  placeholder (i)to the power of 1/2 (for square
-            #  root) divided by number
-        opperator = ((base ** i) ** 1/2) / number
-            # adds our products together
-        new_number += opperator
+        # divide the number by it's base
+        number //= base
 
-        # incriments i & decriments d
-        i += 1
-        d -= 1
-    
-    # gives us our answer
-    return new_number
+    # returns our answer as a str
+    return ''.join(new_number)
 
 
 def convert(digits, base1, base2):
