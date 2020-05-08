@@ -13,22 +13,49 @@ def is_palindrome(text):
     # implement is_palindrome_iterative and is_palindrome_recursive below, then
     # change this to call your implementation to verify it passes all tests
     assert isinstance(text, str), 'input is not a string: {}'.format(text)
-    return is_palindrome_iterative(text)
-    # return is_palindrome_recursive(text)
+    # return is_palindrome_iterative(text)
+    return is_palindrome_recursive(text)
 
 
 def is_palindrome_iterative(text):
-    # TODO: implement the is_palindrome function iteratively here
-    pass
-    # once implemented, change is_palindrome to call is_palindrome_iterative
-    # to verify that your iterative implementation passes all tests
+    # sorts threw our text and makes them all lowercase
+    new_text = [text[i] for i in range(len(text)) if text[i].isalpha()]
+    text = ''.join(new_text).lower()
+    # defines our pointers
+    left = 0
+    right = len(text) - 1
+
+    # loops threw our list
+    while left <= right:
+        if text[left] != text[right]:
+            return False # can't find
+        # incriments left and decriments right
+        left += 1
+        right -= 1
+
+    # found
+    return True
 
 
 def is_palindrome_recursive(text, left=None, right=None):
-    # TODO: implement the is_palindrome function recursively here
-    pass
-    # once implemented, change is_palindrome to call is_palindrome_recursive
-    # to verify that your iterative implementation passes all tests
+    # defines defualt values
+    if left is None:
+        left = 0
+        new_text = [text[i] for i in range(len(text)) if text[i].isalpha()]
+        text = ''.join(new_text).lower()
+        right = len(text) - 1
+
+        
+    # found
+    if left >= right or len(text) < 2:
+        return True
+
+    # can't find
+    if text[left] != text[right]:
+        return False
+
+    # recursive call
+    return is_palindrome_recursive(text, left + 1, right - 1)
 
 
 def main():
