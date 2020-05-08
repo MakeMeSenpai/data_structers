@@ -2,20 +2,21 @@ def contains(text, pattern):
     """Return a boolean indicating whether pattern occurs in text."""
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
-    # TODO: Implement contains here (iteratively and/or recursively)
-    if pattern in text:
-        return True
-    else:
-        return False
-
+    # if find index returns an index return it
+    return find_index(text, pattern) is not None
 
 def find_index(text, pattern):
     """Return the starting index of the first occurrence of pattern in text,
     or None if not found."""
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
-    # TODO: Implement find_index here (iteratively and/or recursively)
-    if contains(text, pattern):
+    # defines indexes as find_all_indexes returned tuple
+    indexes = find_all_indexes(text, pattern)
+    # if the tuple contains items return first indexed item
+    if len(indexes) > 0:
+        return indexes[0]
+    else:
+        return None
 
 
 def find_all_indexes(text, pattern):
@@ -23,7 +24,27 @@ def find_all_indexes(text, pattern):
     or an empty list if not found."""
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
-    # TODO: Implement find_all_indexes here (iteratively and/or recursively)
+    # if the pattern is an empty str
+    if pattern == '':
+        # use list comprehension to return all letters in text(str)
+        return [i for i in range(len(text))]
+    else:
+        #else return empty array
+        indexes = []
+
+    # for the length of the pattern in the text
+    for i in range(len(text) - len(pattern) + 1):
+        # for the lenght of the pattern
+        for j in range(len(pattern)):
+            # if text does not equal pattern
+            if text[i + j] != pattern[j]:
+                # stop the program
+                break
+        # else append to indexes
+        else:
+            indexes.append(i)
+    # returns our list of indexes
+    return indexes
 
 
 def test_string_algorithms(text, pattern):
