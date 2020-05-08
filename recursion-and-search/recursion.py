@@ -1,5 +1,3 @@
-#!python
-
 def factorial(n):
     """factorial(n) returns the product of the integers 1 through n for n >= 0,
     otherwise raises ValueError for n < 0 or non-integer n"""
@@ -13,10 +11,13 @@ def factorial(n):
 
 
 def factorial_iterative(n):
-    # TODO: implement the factorial function iteratively here
-    pass
-    # once implemented, change factorial (above) to call factorial_iterative
-    # to verify that your iterative implementation passes all tests
+    answer = 0
+    f = n
+    while f > 0: 
+        answer *= f
+        f -= 1
+
+    return answer
 
 
 def factorial_recursive(n):
