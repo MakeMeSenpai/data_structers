@@ -1,5 +1,4 @@
-#!python
-
+# Node class
 class Node(object):
 
     def __init__(self, data):
@@ -12,6 +11,7 @@ class Node(object):
         return 'Node({!r})'.format(self.data)
 
 
+# Linked_List class
 class LinkedList(object):
 
     def __init__(self, iterable=None):
@@ -78,7 +78,20 @@ class LinkedList(object):
         # Check if the given index is out of range and if so raise an error
         if not (0 <= index < self.size):
             raise ValueError('List index out of range: {}'.format(index))
-        # TODO: Find the node at the given index and return its data
+        # set out incrimentor
+        i = 0
+        # sets our peeked node to head
+        current_node = self.head
+        # loops threw all of our nodes
+        while current_node is not None:
+            # if i is our index
+            if i == index:
+                # return its data
+                return current_node.data
+            # else interate i
+            i += 1
+            # set our node to it's next pointer
+            current_node = current_node.next
 
     def insert_at_index(self, index, item):
         """Insert the given item at the given index in this linked list, or
@@ -88,7 +101,36 @@ class LinkedList(object):
         # Check if the given index is out of range and if so raise an error
         if not (0 <= index <= self.size):
             raise ValueError('List index out of range: {}'.format(index))
-        # TODO: Find the node before the given index and insert item after it
+        # if our current_node is head
+        if index == 0:
+            # preappend item to the beginning
+            self.prepend(item)
+        # if our current_node is tail
+        elif index == self.size:
+            # append item to the end
+            self.append(item)
+        # else search for index
+        else:
+            # defines our new_Node
+            new_node = Node(item)
+            # increases the list length by 1
+            self.size += 1
+            # set out incrimentor
+            i = 0
+            # sets our peeked node to head
+            current_node = self.head
+            # loops threw all of our nodes
+            while current_node is not None:
+                # if i is our previous index
+                if i == index - 1:
+                    # creates new_nodes next pointer as our current_node
+                    new_node.next = current_node.data
+                    # creates our nodes next pointer as new_node
+                    current_node.next = new_node
+                # else interate i
+                i += 1
+                # set our node to it's next pointer
+                current_node = current_node.next
 
     def append(self, item):
         """Insert the given item at the tail of this linked list.
