@@ -18,7 +18,7 @@ def linear_search_recursive(array, item, index=0):
     # loop over all array values until item is found
     if index == len(array):
         return None # not found
-    if array[index] == item:
+    elif array[index] == item:
         return index # found
     # recursively calls itself iterating index
     return linear_search_recursive(array, item, index + 1)

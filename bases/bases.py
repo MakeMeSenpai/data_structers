@@ -1,18 +1,11 @@
-#!python
-
 import string
 # Hint: Use these string constants to encode/decode hexadecimal digits and more
 # string.digits is '0123456789'
-# binary is "10" leading "0" have no value
-# hexdigits is '0123456789abcdefABCDEF' leading "0x" have no value
+# string.hexdigits is '0123456789abcdefABCDEF'
 # string.ascii_lowercase is 'abcdefghijklmnopqrstuvwxyz'
 # string.ascii_uppercase is 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 # string.ascii_letters is ascii_lowercase + ascii_uppercase
 # string.printable is digits + ascii_letters + punctuation + whitespace
-# bases to the power of, for example binary has a base of 2, and every number has
-#  a place holder, such as the 5 in 50. So if we have "10" then we would take 2^0 
-#  and 2^1 = 2. if it's to the power of zero ignore. example of hexidecimal if we
-#  have "0xB2", 16^1 * 11 + 2 = 13
 
 
 def decode(digits, base):
@@ -20,7 +13,7 @@ def decode(digits, base):
     digits: str -- string representation of number (in given base)
     base: int -- base of given number
     return: int -- integer representation of number (in base 10)"""
-    # Handle up to base 36 [0-9a-z]
+    # Handle up to base 36 [0-9, a-z]
     assert 2 <= base <= 36, 'base is out of range: {}'.format(base)
     # incrimentor
     i = 0
@@ -29,9 +22,9 @@ def decode(digits, base):
     # defines our answer
     new_digits = 0
 
-    # while i is greater then 0
+    # while d is greater than 0
     while 0 <= d:
-        # checks our digit for strs
+        # checks our digit for chars
         if digits[d].isalpha():
             # turns any letters into our hexidecimal's base of 16
             number = string.ascii_lowercase.index(digits[d].lower()) + 10
@@ -54,25 +47,22 @@ def decode(digits, base):
     # gives us our answer
     return new_digits
 
-
-
 def encode(number, base):
     """Encode given number in base 10 to digits in given base.
     number: int -- integer representation of number (in base 10)
     base: int -- base to convert to
     return: str -- string representation of number (in given base)"""
-    # Handle up to base 36 [0-9a-z]
+    # Handle up to base 36 [0-9, a-z]
     assert 2 <= base <= 36, 'base is out of range: {}'.format(base)
-    # Handle unsigned numbers only for now
+    # Handle unsigned numbers only... for now
     assert number >= 0, 'number is negative: {}'.format(number)
-
     # defines an empty array
     new_number = []
-    # while the number is higher then 0
+    # while the number is higher than 0
     while 0 < number:
         # take the remainder
         remainder = number % base
-        # if the remainder is greater then 9
+        # if the remainder is greater than 9
         if remainder > 9:
             # translate it into ascii for hexidecimal
             letter = string.ascii_lowercase[remainder - 10]
